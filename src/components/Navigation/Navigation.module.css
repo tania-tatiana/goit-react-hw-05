@@ -1,0 +1,12 @@
+.wrapper {
+  margin: 0;
+  display: flex;
+  gap: 10px;
+}
+.link {
+  text-decoration: none;
+  color: rgb(168, 164, 164);
+}
+.active {
+  color: orangered;
+}
