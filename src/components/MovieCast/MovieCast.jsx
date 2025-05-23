@@ -34,14 +34,16 @@ export default function MovieCast() {
       });
   }, [movieId]);
   return (
-    <div>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error loading reviews</p>}
-      {!isLoading && actors.length === 0 && <p>No actors found.</p>}
-      <ul>
+    <div className={styles.container}>
+      {isLoading && <p className={styles.loading}>Loading...</p>}
+      {isError && <p className={styles.error}>Error loading reviews</p>}
+      {!isLoading && actors.length === 0 && (
+        <p className={styles.noActors}>No actors found.</p>
+      )}
+      <ul className={styles.castList}>
         {actors.length > 0 &&
           actors.map((actor) => (
-            <li key={actor.cast_id}>
+            <li key={actor.cast_id} className={styles.castItem}>
               {actor.profile_path ? (
                 <img
                   src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
@@ -50,8 +52,8 @@ export default function MovieCast() {
               ) : (
                 <div className={styles.placeholder}>No image available</div>
               )}
-              <p>{actor.original_name}</p>
-              <p>Character: {actor.character}</p>
+              <p className={styles.text}>{actor.original_name}</p>
+              <p className={styles.text}>Character: {actor.character}</p>
             </li>
           ))}
       </ul>

@@ -1,0 +1,40 @@
+/* MovieList.module.css */
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.loading,
+.error {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.item {
+  margin-bottom: 12px;
+  font-size: 20px;
+  transition: transform 0.2s ease;
+}
+
+.item:hover {
+  transform: scale(1.02);
+}
+
+.link {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #007bff;
+}

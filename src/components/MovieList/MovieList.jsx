@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./MovieList.module.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function MovieList() {
+  const location = useLocation();
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
@@ -33,15 +34,21 @@ export default function MovieList() {
   }, []);
 
   return (
-    <div>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error loading movies</p>}
+    <div className={styles.container}>
+      {isLoading && <p className={styles.loading}>Loading...</p>}
+      {isError && <p className={styles.error}>Error loading movies</p>}
 
       {movies.length > 0 && (
-        <ul>
+        <ul className={styles.list}>
           {movies.map((movie) => (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            <li key={movie.id} className={styles.item}>
+              <Link
+                to={`/movies/${movie.id}`}
+                state={location}
+                className={styles.link}
+              >
+                {movie.title}
+              </Link>
             </li>
           ))}
         </ul>

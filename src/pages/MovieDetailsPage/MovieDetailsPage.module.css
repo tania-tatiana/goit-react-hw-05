@@ -1,0 +1,95 @@
+/* MovieDetailsPage.module.css */
+
+.container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 20px;
+  font-family: sans-serif;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.movieCard {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.movieImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.movieTitle {
+  font-size: 32px;
+  margin: 10px 0 5px;
+}
+
+.userScore {
+  font-size: 18px;
+  color: #555;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.genresList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.genresList li {
+  background-color: #f0f0f0;
+  color: #555;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.additionalInfo {
+  margin-top: 30px;
+}
+
+.navLinks {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.navLink {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navLink.active {
+  text-decoration: underline;
+}
+
+.loading,
+.error {
+  text-align: center;
+  color: #666;
+  font-size: 18px;
+}

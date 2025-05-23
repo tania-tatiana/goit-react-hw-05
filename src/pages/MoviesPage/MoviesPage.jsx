@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./MoviesPage.module.css";
 import axios from "axios";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 
 export default function MoviePage() {
+  const location = useLocation();
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
@@ -82,10 +83,16 @@ export default function MoviePage() {
       {isError && <p>Error loading movies</p>}
 
       {movies.length > 0 && (
-        <ul>
+        <ul className={styles.list}>
           {movies.map((movie) => (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            <li key={movie.id} className={styles.item}>
+              <Link
+                to={`/movies/${movie.id}`}
+                state={location}
+                className={styles.link}
+              >
+                {movie.title}
+              </Link>
             </li>
           ))}
         </ul>

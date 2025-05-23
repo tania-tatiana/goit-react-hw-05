@@ -34,17 +34,19 @@ export default function MovieReviews() {
       });
   }, [movieId]);
   return (
-    <div>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error loading reviews</p>}
-      {!isLoading && reviews.length === 0 && <p>No reviews found.</p>}
+    <div className={styles.container}>
+      {isLoading && <p className={styles.loading}>Loading...</p>}
+      {isError && <p className={styles.error}>Error loading reviews</p>}
+      {!isLoading && reviews.length === 0 && (
+        <p className={styles.noReviews}>No reviews found.</p>
+      )}
 
-      <ul>
+      <ul className={styles.reviewList}>
         {reviews.length > 0 &&
           reviews.map((review) => (
-            <li key={review.id}>
-              <p>Author: {review.author}</p>
-              <p>{review.content}</p>
+            <li key={review.id} className={styles.reviewItem}>
+              <p className={styles.reviewAuthor}>Author: {review.author}</p>
+              <p className={styles.reviewContent}>{review.content}</p>
             </li>
           ))}
       </ul>
