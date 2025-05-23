@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./MoviesPage.module.css";
 import axios from "axios";
 import { Link, useSearchParams } from "react-router-dom";
+import { useDebounce } from "use-debounce";
 
 export default function MoviePage() {
   const [movies, setMovies] = useState([]);
@@ -10,7 +11,9 @@ export default function MoviePage() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const query = searchParams.get("query") || "";
+  const query = searchParams.get("query") ?? "";
+
+  const [debouncedQuery] = useDebounce(query, 300);
 
   //   const url =
   //     "https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1";
@@ -23,7 +26,7 @@ export default function MoviePage() {
   };
 
   useEffect(() => {
-    if (!query) return;
+    if (!debouncedQuery) return;
 
     setIsLoading(true);
     setIsError(null);
@@ -31,7 +34,7 @@ export default function MoviePage() {
     axios
       .get("https://api.themoviedb.org/3/search/movie", {
         params: {
-          query,
+          query: debouncedQuery,
           language: "en-US",
         },
         ...options,
@@ -45,13 +48,19 @@ export default function MoviePage() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [query]);
+  }, [debouncedQuery]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const value = e.target.elements.search.value.trim();
-    if (!value) return;
-    setSearchParams({ query: value });
+    const nextSearchParams = new URLSearchParams(searchParams);
+    if (value !== "") {
+      nextSearchParams.set("query", value);
+    } else {
+      nextSearchParams.delete("query");
+    }
+
+    setSearchParams(nextSearchParams);
   };
 
   return (

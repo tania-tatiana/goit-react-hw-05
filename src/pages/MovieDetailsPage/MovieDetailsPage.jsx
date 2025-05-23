@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams, Outlet } from "react-router-dom";
 import styles from "./MovieDetailsPage.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -8,7 +8,6 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
-  const url = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`;
 
   const options = {
     headers: {
@@ -20,7 +19,10 @@ export default function MovieDetailsPage() {
     setIsLoading(true);
     setIsError(null);
     axios
-      .get(url, options)
+      .get(
+        `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
+        options
+      )
       .then((res) => {
         setMovie(res.data);
       })
@@ -30,11 +32,13 @@ export default function MovieDetailsPage() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [movieId]);
   return (
     <div>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error loading movies</p>}
+
+      <Link>Go back</Link>
 
       {movie && (
         <li key={movie.id}>
@@ -49,7 +53,7 @@ export default function MovieDetailsPage() {
           <h3>Genres</h3>
           <ul>
             {movie.genres.map((genre) => (
-              <li key={genre.id}>{genre.id}</li>
+              <li key={genre.id}>{genre.name}</li>
             ))}
           </ul>
         </li>
@@ -57,12 +61,13 @@ export default function MovieDetailsPage() {
       <p>Additional information</p>
       <ul>
         <li>
-          <Link to={`/movies/cast`}>Cast</Link>
+          <NavLink to="cast">Cast</NavLink>
         </li>
         <li>
-          <Link to={`/movies/reviews`}>Reviews</Link>
+          <NavLink to="reviews">Reviews</NavLink>
         </li>
       </ul>
+      <Outlet />
     </div>
   );
 }
